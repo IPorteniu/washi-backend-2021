@@ -47,6 +47,17 @@ namespace Washi.API.Controllers
             return resources;
         }
 
+        [HttpGet("laundryservicematerials/{id}")]
+        public async Task<IActionResult> GetAsync(int id)
+        {
+            var result = await _laundryServiceMaterialService.GetById(id);
+            if (!result.Success)
+                return BadRequest(result.Message);
+            var laundryServiceMaterialResource = _mapper
+                .Map<LaundryServiceMaterial, LaundryServiceMaterialResource>(result.Resource);
+            return Ok(laundryServiceMaterialResource);
+        }
+
         [HttpGet("laundryservicematerials/{laundryServiceMaterialId}/laundries")]
         public async Task<IEnumerable<UserProfileResource>> GetAllLaundriesByLaundryServiceMaterialIdAsync(int laundryServiceMaterialId)
         {
@@ -110,6 +121,25 @@ namespace Washi.API.Controllers
             var laundryServiceMaterialResource = _mapper
                 .Map<LaundryServiceMaterial, LaundryServiceMaterialResource>(result.Resource);
             return Ok(laundryServiceMaterialResource);
+        }
+        [HttpGet("laundry/{laundryId}/service-material/{serviceMaterialId}")]
+        public async Task<IActionResult> GetServiceMaterialByLaundryIdAndServiceMaterialIdAsync(int laundryId, int serviceMaterialId)
+        {
+            var result = await _laundryServiceMaterialService.GetByLaundryIdAndServiceMaterialId(laundryId, serviceMaterialId);
+            if (!result.Success)
+                return BadRequest(result.Message);
+            var resource = _mapper
+                .Map<LaundryServiceMaterial, LaundryServiceMaterialResource>(result.Resource);
+            return Ok(resource);
+        }
+        [HttpGet("service-materials/{serviceMaterialId}/districts/{districtId}/laundries")]
+        public async Task<IEnumerable<UserProfileResource>> GetAllLaundriesByServiceMaterialIdAndDistrictIdAsync(int serviceMaterialId, int districtId)
+        {
+            var laundries = await _laundryServiceMaterialService.ListLaundriesByServiceMaterialIdAndDistrictIdAsync(serviceMaterialId, districtId);
+            var resources = _mapper
+                .Map<IEnumerable<UserProfile>, IEnumerable<UserProfileResource>>(laundries);
+            //Check if ok
+            return resources;
         }
     }
 }

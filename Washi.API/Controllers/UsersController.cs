@@ -10,9 +10,12 @@ using Washi.API.Domain.Services;
 using Washi.API.Extensions;
 using Washi.API.Resources;
 using Swashbuckle.AspNetCore.Annotations;
+using Washi.API.Domain.Services.Communications;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Washi.API.Controllers
 {
+    //[Authorize]
     [Route("/api/[controller]")]
     public class UsersController : Controller
     {
@@ -53,6 +56,18 @@ namespace Washi.API.Controllers
             return Ok(userResource);
         }
 
+        [HttpGet("email/{email}")]
+        public async Task<IActionResult> GetByEmailAsync(string email)
+        {
+            var result = await _userService.FindByEmail(email);
+            if (!result.Success)
+                return BadRequest(result.Message);
+            var userResource = _mapper
+                .Map<User, UserResource>(result.Resource);
+            return Ok(userResource);
+        }
+
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> PostAsync([FromBody] SaveUserResource resource)
         {
@@ -92,6 +107,19 @@ namespace Washi.API.Controllers
             var userResource = _mapper
                 .Map<User, UserResource>(result.Resource);
             return Ok(userResource);
+        }
+
+        //Authentication
+        [AllowAnonymous]
+        [HttpPost("authenticate")]
+        public async Task<IActionResult> Authenticate([FromBody] AuthenticationRequest request)
+        {
+            var response = await _userService.Authenticate(request);
+
+            if (response == null)
+                return BadRequest(new { message = "Invalid Email or Password" });
+
+            return Ok(response);
         }
     }
 }

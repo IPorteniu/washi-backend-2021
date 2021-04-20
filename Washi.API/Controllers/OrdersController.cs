@@ -12,6 +12,7 @@ using Washi.API.Resources;
 
 namespace Washi.API.Controllers
 {
+    //[Microsoft.AspNetCore.Authorization.Authorize]
     [Microsoft.AspNetCore.Mvc.Route("/api/[controller]")]
     public class OrdersController : Controller
     {
@@ -57,6 +58,14 @@ namespace Washi.API.Controllers
         public async Task<IEnumerable<OrderResource>> GetByUserIdAndOrderStatusIdAsync(int userId, int orderStatusId)
         {
             var orders = await _orderService.ListByUserIdAndOrderStatusId(userId, orderStatusId);
+            var resources = _mapper
+                .Map<IEnumerable<Order>, IEnumerable<OrderResource>>(orders);
+            return resources;
+        }
+        [HttpGet("laundries/{laundryId}")]
+        public async Task<IEnumerable<OrderResource>> GetByLaundryId(int laundryId)
+        {
+            var orders = await _orderService.ListByLaundryId(laundryId);
             var resources = _mapper
                 .Map<IEnumerable<Order>, IEnumerable<OrderResource>>(orders);
             return resources;
