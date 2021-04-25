@@ -11,7 +11,7 @@ using Washi.API.Resources;
 
 namespace Washi.API.Controllers
 {
-    //[Microsoft.AspNetCore.Mvc.Route("/api/countries/{countryId}/departments")]
+    [Microsoft.AspNetCore.Mvc.Route("/api/countries/{countryId}/departments")]
     public class CountryDepartmentsController
     {
         private readonly IDepartmentService _departmentService;

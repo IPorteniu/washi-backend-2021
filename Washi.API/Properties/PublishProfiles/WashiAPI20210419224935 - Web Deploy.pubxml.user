@@ -7,7 +7,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
     <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAdgXutu+ErUWz3q6NtI24rwAAAAACAAAAAAAQZgAAAAEAACAAAAABD3eST+DZ7vu1oChox+y7KCWUpZTD4UYpNYL/yQCDaQAAAAAOgAAAAAIAACAAAABFtoCKnKqDkU/+soTXjbFTuxB/PmUPdqc8J8uuqog3WIAAAAB7PhFLAa8V4hibrjjbknF5H1JhNwFbRiRSvfn+/ZU6oCY2H192k+uQcGVwJm/5l52AH7b1sLavppXteZAhsa8fBDkUOu8Zd7OfQJefkoO2MXpuVc6R18OzaGax3vauMYwHIyQZobAyyLaL/T4IuwaLDxXOFTwwGO8+tXwniW54aEAAAACjZU0Bfvb7DPsngPdjat0FZUnyZtSfNd3RAK/mx3cr1uHp3+XJA51iBQZHHVdgKw5//8vROyM5pgy8YAqfYBia</EncryptedPassword>
-    <History>True|2021-04-20T03:53:06.1878767Z;</History>
+    <History>True|2021-04-20T04:53:43.8093076Z;True|2021-04-19T22:53:06.1878767-05:00;</History>
   </PropertyGroup>
   <ItemGroup>
     <DestinationConnectionStrings Include="DefaultConnection">
