@@ -16,6 +16,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Steeltoe.Discovery.Client;
 using Washi.API.Domain.Persistence.Contexts;
 using Washi.API.Domain.Repositories;
 using Washi.API.Domain.Services;
@@ -39,6 +40,7 @@ namespace Washi.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDiscoveryClient(Configuration);
             services.AddCors();
             //Controllers
             services.AddControllers();
@@ -146,6 +148,7 @@ namespace Washi.API
                 endpoints.MapControllers();
             });
             app.UserCustomSwagger();
+            app.UseDiscoveryClient();
         }
     }
 }
